@@ -1,8 +1,8 @@
 import express from 'express'
 
 import { recipeService } from './recipe.service.js'
+import { dbService } from '../../services/db.service.js'
 
-import { dbService } from '../../services/db.Service.js'
 
 // const router = express.Router()
 
@@ -10,7 +10,7 @@ import { dbService } from '../../services/db.Service.js'
 // router.post('/',  addRecipes)
 // router.delete('/:id',  requireAuth, deleteRecipes)
 
-// export const recipesRoutes = router
+export { router as recipesRoutes }
 
 
 const router = express.Router()
@@ -39,4 +39,3 @@ router.get('/', async (req, res) => {
 
 // Add your other route handlers for POST and DELETE as needed.
 
-export { router as recipesRoutes }
