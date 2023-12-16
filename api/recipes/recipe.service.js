@@ -24,7 +24,6 @@ async function getAllRecipes() {
 async function getById(id) {
     try {
         const recipe = await Recipe.findById(id)
-        console.log('found recipe:', recipe)
         return recipe
     } catch (e) {
         console.log(e.message)
@@ -64,7 +63,6 @@ async function add(recipe) {
 }
 
 async function update(recipe, objId) {
-    console.log("🚀 ~ file: recipe.service.js:45 ~ update ~ recipe:", recipe)
     try {
         const recipeToSave = {
             id: recipe.id,

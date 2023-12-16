@@ -7,8 +7,7 @@ export async function getRecipes(req, res) {
         //   txt: req.query.txt || '',
         // }
         const recipes = await recipeService.getAllRecipes()
-        console.log(recipes)
-        res.json({ recipes })
+        res.json(recipes)
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch recipes' })
         console.error('Error fetching recipes:', error)
