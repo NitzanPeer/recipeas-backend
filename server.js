@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import Express from 'express'
 import { recipesRoutes } from './api/recipes/recipe.routes.js'
+import { tagsRoutes } from './api/tags/tag.routes.js'
 import cors from 'cors'
 
 
@@ -17,6 +18,7 @@ app.use(cors())
 app.use(Express.json())
 
 app.use('/recipes', recipesRoutes)
+app.use('/tags', tagsRoutes)
 
 
 async function connect() {
@@ -31,11 +33,3 @@ async function connect() {
 connect()
 
 
-
-/*
-Understand:
-1. router importing
-
-TODO:
-
-*/

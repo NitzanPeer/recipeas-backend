@@ -40,8 +40,8 @@ export async function updateRecipe(req, res) {
     try {
         const recipe = req.body
         const recipeObjId = req.params.id
-        const recipeToUpdate = await recipeService.update(recipe, recipeObjId)
-        res.json(recipeToUpdate)
+        await recipeService.update(recipe, recipeObjId)
+        res.status(200).send()
     } catch (err) {
         res.status(400).send({ err: 'Failed to update recipe' })
 

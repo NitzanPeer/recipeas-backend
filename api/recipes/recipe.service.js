@@ -10,7 +10,7 @@ export const recipeService = {
     remove
 }
 
-// this needs to be converted to query so we get what recipes we want (filter etc)
+// this prob needs to be converted to query if I move the filtering front to back
 async function getAllRecipes() {
     try {
         const recipes = await Recipe.find({})
