@@ -10,7 +10,6 @@ dotenv.config()
 const app = Express()
 const PORT = process.env.PORT || 3030
 
-
 // const uri = 'mongodb://127.0.0.1/Recipes'
 // const uri = 'mongodb://localhost/Recipes'
 const uri = `mongodb+srv://admin:${process.env.MONGODB_PASS}@cluster0.rpwhwel.mongodb.net/Recipes`
