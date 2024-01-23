@@ -7,7 +7,8 @@ export const recipeService = {
     getById,
     add,
     update,
-    remove
+    remove,
+    removeTagFromAllRecipes
 }
 
 // this prob needs to be converted to query if I move the filtering front to back
@@ -21,9 +22,9 @@ async function getAllRecipes() {
     }
 }
 
-async function getById(id) {
+async function getById(tagId) {
     try {
-        const recipe = await Recipe.findById(id)
+        const recipe = await Recipe.findById(tagId)
         return recipe
     } catch (e) {
         console.log(e.message)
@@ -49,7 +50,8 @@ async function add(recipe) {
             title: recipe.title,
             description: recipe.description,
             ingredients: recipe.ingredients,
-            method: recipe.method
+            method: recipe.method,
+            tags: recipe.tags
         })
 
         const addedRecipe = await newRecipe.save()
@@ -65,11 +67,11 @@ async function add(recipe) {
 async function update(recipe, objId) {
     try {
         const recipeToSave = {
-            id: recipe.id,
             title: recipe.title,
             description: recipe.description,
             ingredients: recipe.ingredients,
-            method: recipe.method
+            method: recipe.method,
+            tags: recipe.tags
         }
         await Recipe.updateOne({ _id: objId }, recipeToSave)
         console.log(`recipe ${objId} was updated`)
@@ -81,6 +83,7 @@ async function update(recipe, objId) {
 
 async function remove(id) {
     try {
+        await removeTagFromAllRecipes(id)
         await Recipe.deleteOne({ _id: id })
         console.log(`recipe ${id} was removed`)
     } catch (e) {
@@ -88,3 +91,18 @@ async function remove(id) {
     }
 }
 
+async function removeTagFromAllRecipes(id) {
+    try {
+        await Recipe.updateMany(
+            // $in selects all the documents which contain the specific id within their tags array
+            // $pull then removes all said instances of the id from all the "tags" arrays inside all the documents found
+            { tags: { $in: [id] } },
+            { $pull: { tags: id } }
+        )
+
+        console.log(`Tag ${id} removed from recipes`)
+    } catch (e) {
+        console.log(e.message)
+        throw new Error('Failed to update recipes')
+    }
+}

@@ -1,4 +1,5 @@
 import Tag from '../../model/tag.js'
+import { recipeService } from '../recipes/recipe.service.js'
 
 
 export const tagService = {
@@ -10,10 +11,10 @@ export const tagService = {
     remove
 }
 
-// this prob needs to be converted to query if I move the filtering front to back
 async function getAllTags() {
     try {
         const tags = await Tag.find({})
+        console.log('tags fetched from mongo', tags)
         return tags
     } catch (error) {
         console.error('Error fetching tags:', error)
@@ -47,16 +48,11 @@ async function add(tag) {
     try {
         const newTag = new Tag({
             title: tag.title,
-            description: tag.description,
-            ingredients: tag.ingredients,
-            method: tag.method
         })
 
         const addedTag = await newTag.save()
         return addedTag
 
-        // why doesn't this work?:
-        // await Tag.insertOne(tag)
     } catch (e) {
         console.log(e.message)
     }
@@ -65,13 +61,12 @@ async function add(tag) {
 async function update(tag, objId) {
     try {
         const tagToSave = {
-            id: tag.id,
             title: tag.title,
-            description: tag.description,
-            ingredients: tag.ingredients,
-            method: tag.method
         }
+
+        // update tag in mongo
         await Tag.updateOne({ _id: objId }, tagToSave)
+
         console.log(`tag ${objId} was updated`)
     } catch (e) {
         console.log(e.message)
@@ -79,10 +74,17 @@ async function update(tag, objId) {
     }
 }
 
-async function remove(id) {
+async function remove(tagId) {
+    console.log("🚀 ~ remove ~ tagId:", tagId)
     try {
-        await Tag.deleteOne({ _id: id })
-        console.log(`tag ${id} was removed`)
+        // delete tag from recipes that hold it in their "tags" property
+        await recipeService.removeTagFromAllRecipes(tagId)
+
+        // delete tag from tag list in mongo
+        await Tag.deleteOne({ _id: tagId })
+
+
+        console.log(`tag ${tagId} was removed`)
     } catch (e) {
         console.log(e.message)
     }

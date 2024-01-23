@@ -4,9 +4,9 @@ const recipeSchema = new mongoose.Schema({
     title: String,
     description: String,
     ingredients: Array,
-    method: Array
+    method: Array,
+    tags: Array
 })
-
 
 const Recipe = mongoose.model("Recipe", recipeSchema)
 
