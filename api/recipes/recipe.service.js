@@ -15,6 +15,7 @@ export const recipeService = {
 async function getAllRecipes() {
     try {
         const recipes = await Recipe.find({})
+        console.log("🚀 ~ getAllRecipes ~ recipes:", recipes)
         return recipes
     } catch (error) {
         console.error('Error fetching recipes:', error)
