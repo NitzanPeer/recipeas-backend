@@ -2,10 +2,6 @@ import { recipeService } from "./recipe.service.js"
 
 export async function getRecipes(req, res) {
     try {
-
-        // const filterBy = {
-        //   txt: req.query.txt || '',
-        // }
         const recipes = await recipeService.getAllRecipes()
         res.json(recipes)
     } catch (error) {

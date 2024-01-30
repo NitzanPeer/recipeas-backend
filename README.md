@@ -9,7 +9,6 @@
 * Cors: A Node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
 * Dotenv: A zero-dependency module that loads environment variables from a .env file into process.env.
 
-
 ## Project Setup
 
 To set up the backend, follow these steps:
@@ -32,3 +31,7 @@ To set up the backend, follow these steps:
     This command will start the server in development mode using nodemon, which automatically restarts the server when changes are detected.
 
     By default, the server runs on port 3000. You can customize the port by setting the PORT environment variable.
+
+## Frontend link
+
+https://github.com/NitzanPeer/recipeas-frontend

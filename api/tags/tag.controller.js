@@ -2,10 +2,6 @@ import { tagService } from "./tag.service.js"
 
 export async function getTags(req, res) {
     try {
-
-        // const filterBy = {
-        //   txt: req.query.txt || '',
-        // }
         const tags = await tagService.getAllTags()
         res.json(tags)
     } catch (error) {

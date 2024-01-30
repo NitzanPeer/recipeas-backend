@@ -35,9 +35,6 @@ async function get(filter) {
     try {
         const tag = await Tag.find(filter)
 
-        // example for future filter:
-        // const tag = await Tag.find(({ title: 'קארי חומוס'}))
-
         console.log('found tag:', tag)
     } catch (e) {
         console.log(e.message)

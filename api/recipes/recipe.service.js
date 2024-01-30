@@ -11,7 +11,6 @@ export const recipeService = {
     removeTagFromAllRecipes
 }
 
-// this prob needs to be converted to query if I move the filtering front to back
 async function getAllRecipes() {
     try {
         const recipes = await Recipe.find({})
@@ -95,8 +94,8 @@ async function remove(id) {
 async function removeTagFromAllRecipes(id) {
     try {
         await Recipe.updateMany(
-            // $in selects all the documents which contain the specific id within their tags array
-            // $pull then removes all said instances of the id from all the "tags" arrays inside all the documents found
+            // $in - selects all the documents which contain the specific id within their tags array
+            // $pull - removes all said instances of the id from all the "tags" arrays inside all the documents found
             { tags: { $in: [id] } },
             { $pull: { tags: id } }
         )
